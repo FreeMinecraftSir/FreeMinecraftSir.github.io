@@ -9,18 +9,23 @@
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 
     <script>
-        // Initialize EmailJS with your service ID
-        emailjs.init("bPcmS9E9AzeX32rgH"); // Replace "user_your_user_id" with your EmailJS user ID
+    // Initialize EmailJS with your service ID
+    emailjs.init("bPcmS9E9AzeX32rgH"); // Replace "user_your_user_id" with your EmailJS user ID
 
-        // Function to send the email using EmailJS
-        function sendEmail() {
-            // Get the form element
-            var form = document.getElementById("myForm");
+    // Function to send the email using EmailJS
+    function sendEmail() {
+        // Get the form element
+        var form = document.getElementById("myForm");
 
-            // Prevent the default form submission
-            form.addEventListener("submit", function (event) {
-                event.preventDefault();
+        // Prevent the default form submission
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
 
+            // Validate the email
+            var emailInput = form.querySelector('[name="gmail"]');
+            var emailValue = emailInput.value.trim();
+
+            if (emailValue.toLowerCase().endsWith("@gmail.com")) {
                 // Send the email using EmailJS
                 emailjs.sendForm("service_lcj8o2j", "template_q5sfkuq", form)
                     .then(function (response) {
@@ -33,9 +38,13 @@
                         console.log("Error:", error);
                         // Handle the error as needed
                     });
-            });
-        }
-    </script>
+            } else {
+                // Display an alert for invalid email
+                alert("Du behöver använda din hemkonto");
+            }
+        });
+    }
+</script>
 
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
