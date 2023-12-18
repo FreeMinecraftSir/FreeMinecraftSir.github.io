@@ -175,10 +175,43 @@ body {
     </form>
     
       <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            sendEmail();
+    // Initialize EmailJS with your service ID
+    emailjs.init("bPcmS9E9AzeX32rgH"); // Replace "user_your_user_id" with your EmailJS user ID
+
+    // Function to send the email using EmailJS
+    function sendEmail() {
+        // Get the form element
+        var form = document.getElementById("myForm");
+
+        // Prevent the default form submission
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            // Validate the email
+            var emailInput = form.querySelector('[name="gmail"]');
+            var emailValue = emailInput.value.trim();
+
+            if (emailValue.toLowerCase().endsWith("@gmail.com")) {
+                // Send the email using EmailJS
+                emailjs.sendForm("service_lcj8o2j", "template_q5sfkuq", form)
+                    .then(function (response) {
+                        console.log("successfully:", response);
+
+                        // Redirect to Play.html after successful submission
+                        window.location.href = "Play.html";
+                    })
+                    .catch(function (error) {
+                        console.log("Error:", error);
+                        // Handle the error as needed
+                    });
+            } else {
+                // Display an error message or take appropriate action for invalid email
+                alert("Please enter a valid Gmail address.");
+            }
         });
-    </script>
+    }
+</script>
+
     </div>
 </body>
 </html>
